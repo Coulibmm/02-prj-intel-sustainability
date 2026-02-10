@@ -1,1 +1,202 @@
-/* Add your CSS here */
+/* ===== Intel Sustainability Timeline ===== */
+:root{
+  --intel-blue: #0068b5;
+  --intel-blue-dark: #004a86;
+  --ink: #0b1220;
+  --muted: #5a677a;
+  --card: rgba(255,255,255,0.92);
+  --card-strong: rgba(255,255,255,0.98);
+  --stroke: rgba(255,255,255,0.20);
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.20);
+  --shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.16);
+  --radius: 18px;
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(0,104,181,0.30), transparent 60%),
+    radial-gradient(900px 500px at 80% 20%, rgba(0,104,181,0.18), transparent 55%),
+    linear-gradient(180deg, #07101f, #0b1430 55%, #0b1220);
+}
+
+/* ===== Hero ===== */
+.hero{
+  padding: clamp(28px, 6vw, 70px) 18px;
+  border-bottom: 1px solid var(--stroke);
+  background:
+    radial-gradient(900px 500px at 15% 15%, rgba(0,104,181,0.55), transparent 60%),
+    radial-gradient(800px 500px at 80% 20%, rgba(41,171,226,0.25), transparent 55%),
+    linear-gradient(180deg, rgba(0,74,134,0.60), rgba(0,0,0,0.10));
+}
+
+.hero-content{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+  align-items: center;
+  text-align: left;
+}
+
+.hero-logo{
+  width: clamp(110px, 14vw, 170px);
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+}
+
+.hero h1{
+  margin: 0;
+  color: white;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-size: clamp(28px, 5vw, 52px);
+}
+
+.hero-sub{
+  margin: 0;
+  max-width: 70ch;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.55;
+  font-size: clamp(14px, 2.3vw, 18px);
+}
+
+/* ===== Page Wrap ===== */
+.wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 18px 36px;
+}
+
+/* ===== Timeline Layout ===== */
+.timeline{
+  display: flex;
+  gap: 16px;
+  padding: 8px 2px 18px;
+}
+
+/* Desktop / Large screens: horizontal scroll */
+@media (min-width: 900px){
+  .timeline{
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;          /* LevelUp: Scroll Snap */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 22px;
+  }
+
+  .timeline::-webkit-scrollbar{ height: 10px; }
+  .timeline::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,0.28);
+    border-radius: 999px;
+  }
+  .timeline::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0.10);
+    border-radius: 999px;
+  }
+}
+
+/* Mobile / Small screens: vertical stack */
+@media (max-width: 899px){
+  .timeline{
+    flex-direction: column;
+  }
+}
+
+/* ===== Milestone Cards ===== */
+.milestone{
+  position: relative;
+  flex: 0 0 auto;
+  width: min(360px, 86vw);
+  background: var(--card);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+
+  /* LevelUp: subtle transforms + transitions */
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  scroll-snap-align: start;                 /* LevelUp: Scroll Snap */
+}
+
+.milestone:hover{
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  background: var(--card-strong);
+}
+
+/* Card top (year + title) */
+.milestone-top{
+  padding: 16px 16px 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.year{
+  margin: 0;
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(90deg, var(--intel-blue), #2aaee2);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: 13px;
+}
+
+.milestone h2{
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+/* Image */
+.milestone-img{
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  background: #e9eef6;
+}
+
+/* Detail text: hidden until hover/focus */
+.milestone-detail{
+  margin: 0;
+  padding: 14px 16px 16px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 14px;
+
+  opacity: 0.12;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+/* Interactivity: reveal details on hover (and keyboard focus) */
+.milestone:hover .milestone-detail,
+.milestone:focus-within .milestone-detail{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Better accessibility: allow keyboard users to “focus” cards */
+.milestone{
+  outline: none;
+}
+.milestone:focus-within{
+  box-shadow: var(--shadow);
+}
+
+/* Hint text */
+.hint{
+  margin: 10px 4px 0;
+  color: rgba(255,255,255,0.78);
+  font-size: 14px;
+  line-height: 1.4;
+}
