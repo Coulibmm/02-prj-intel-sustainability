@@ -202,3 +202,13 @@ body{
   font-size: 14px;
   line-height: 1.4;
 }
+
+/* RTL fixes for your hero text only (timeline is flex and stays fine) */
+html[dir="rtl"] .hero-content {
+  text-align: right;
+}
+
+/* Optional: keep language dropdown readable */
+html[dir="rtl"] #langSelect {
+  direction: rtl;
+}
