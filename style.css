@@ -212,3 +212,11 @@ html[dir="rtl"] .hero-content {
 html[dir="rtl"] #langSelect {
   direction: rtl;
 }
+
+html[dir="rtl"] .hero-content {
+  text-align: right;
+}
+
+html[dir="rtl"] #langSelect {
+  direction: rtl;
+}

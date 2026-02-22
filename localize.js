@@ -157,28 +157,58 @@ function setBootstrapDir(lang) {
   rtlLink.disabled = !isRTL(lang);
 }
 
+/* ---- IMPORTANT FIX: prevents MutationObserver infinite loop ---- */
+let isApplying = false;
+
 function applyLang(lang) {
   const dict = STRINGS[lang] || STRINGS.en;
 
-  document.documentElement.lang = lang;
-  document.documentElement.dir = isRTL(lang) ? "rtl" : "ltr";
+  isApplying = true;
+
+  // Update html lang
+  if (document.documentElement.lang !== lang) {
+    document.documentElement.lang = lang;
+  }
+
+  // Update dir ONLY if different (prevents loops)
+  const desiredDir = isRTL(lang) ? "rtl" : "ltr";
+  if (document.documentElement.dir !== desiredDir) {
+    document.documentElement.dir = desiredDir;
+  }
+
+  // Toggle Bootstrap RTL stylesheet
   setBootstrapDir(lang);
 
+  // Replace all translated text
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (dict[key]) el.textContent = dict[key];
   });
 
-  // Optional: nicer Arabic fallback font
+  // Optional: better Arabic font
   if (lang === "ar") document.body.style.fontFamily = "Tahoma, Arial, sans-serif";
   else document.body.style.fontFamily = "";
+
+  // release guard after DOM updates finish
+  setTimeout(() => {
+    isApplying = false;
+  }, 0);
 }
 
-// LevelUp: auto-detect lang/dir changes (ex: Google Translate)
+/* LevelUp: detect external language changes (Google Translate, etc.) */
 function observeLangChanges() {
   const obs = new MutationObserver(() => {
+    // Ignore changes that we caused ourselves
+    if (isApplying) return;
+
     const lang = document.documentElement.lang || "en";
-    document.documentElement.dir = isRTL(lang) ? "rtl" : "ltr";
+    const desiredDir = isRTL(lang) ? "rtl" : "ltr";
+
+    // Only update if needed
+    if (document.documentElement.dir !== desiredDir) {
+      document.documentElement.dir = desiredDir;
+    }
+
     setBootstrapDir(lang);
   });
 
@@ -189,9 +219,11 @@ function observeLangChanges() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Footer year
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
+  // Dropdown switching
   const sel = document.getElementById("langSelect");
   if (sel) {
     sel.addEventListener("change", (e) => applyLang(e.target.value));
