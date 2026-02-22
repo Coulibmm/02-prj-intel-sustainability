@@ -1,9 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intel: Sustainability Through the Ages</title>
+
+  <!-- Bootstrap (LTR) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap RTL (disabled by default; enabled by JS for Arabic) -->
+  <link
+    id="bs-rtl"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+    rel="stylesheet"
+    disabled
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Your existing styles (timeline stays as-is) -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -11,11 +33,22 @@
   <!-- Header / Hero Section -->
   <header class="hero">
     <div class="hero-content">
+
+      <!-- Language selector -->
+      <div class="d-flex gap-2 align-items-center">
+        <label class="text-white-50 small mb-0" for="langSelect">Language</label>
+        <select id="langSelect" class="form-select form-select-sm w-auto" aria-label="Select language">
+          <option value="en" selected>English</option>
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>
+
       <img class="hero-logo" src="img/intel-header-logo.svg" alt="Intel Logo" />
 
-      <h1>Sustainability Through the Ages</h1>
+      <h1 data-i18n="heroTitle">Sustainability Through the Ages</h1>
 
-      <p class="hero-sub">
+      <p class="hero-sub" data-i18n="heroSub">
         Explore Intel's journey through time, discovering how our commitment
         to innovation has shaped a more sustainable future for technology
         and our planet.
@@ -23,7 +56,7 @@
     </div>
   </header>
 
-  <!-- Timeline Cards Section -->
+  <!-- Timeline Cards Section (UNCHANGED) -->
   <main class="wrap">
     <section class="timeline" aria-label="Intel sustainability timeline">
 
@@ -31,10 +64,10 @@
       <article class="milestone">
         <div class="milestone-top">
           <p class="year">1968</p>
-          <h2>Intel Founded</h2>
+          <h2 data-i18n="m1968Title">Intel Founded</h2>
         </div>
         <img class="milestone-img" src="img/2.jpg" alt="Historic Intel building or early computing imagery" />
-        <p class="milestone-detail">
+        <p class="milestone-detail" data-i18n="m1968Body">
           Robert Noyce and Gordon Moore rename the newly formed company
           NM Electronics to Intel Corporation, laying the foundation for
           decades of technological innovation.
@@ -45,10 +78,10 @@
       <article class="milestone">
         <div class="milestone-top">
           <p class="year">1971</p>
-          <h2>First Microprocessor</h2>
+          <h2 data-i18n="m1971Title">First Microprocessor</h2>
         </div>
         <img class="milestone-img" src="img/3.jpg" alt="Microprocessor or chip close-up" />
-        <p class="milestone-detail">
+        <p class="milestone-detail" data-i18n="m1971Body">
           Intel debuts the 4004, the world's first commercial microprocessor,
           igniting the microprocessor revolution and propelling the future
           of computing devices.
@@ -59,10 +92,10 @@
       <article class="milestone">
         <div class="milestone-top">
           <p class="year">1978</p>
-          <h2>8086 Processor</h2>
+          <h2 data-i18n="m1978Title">8086 Processor</h2>
         </div>
         <img class="milestone-img" src="img/3.jpg" alt="CPU / PCB imagery representing x86 era" />
-        <p class="milestone-detail">
+        <p class="milestone-detail" data-i18n="m1978Body">
           Launch of the 8086 processor, establishing the x86 architecture
           that drives countless PCs and servers in the modern era.
         </p>
@@ -72,10 +105,10 @@
       <article class="milestone">
         <div class="milestone-top">
           <p class="year">1985</p>
-          <h2>386 Processor</h2>
+          <h2 data-i18n="m1985Title">386 Processor</h2>
         </div>
         <img class="milestone-img" src="img/4.jpg" alt="Vintage computer or processor imagery" />
-        <p class="milestone-detail">
+        <p class="milestone-detail" data-i18n="m1985Body">
           Intel introduces the 386 processor with 32-bit architecture,
           ushering in a new era of performance and multitasking for
           personal computers.
@@ -86,10 +119,10 @@
       <article class="milestone">
         <div class="milestone-top">
           <p class="year">2020</p>
-          <h2>RISE Strategy</h2>
+          <h2 data-i18n="m2020Title">RISE Strategy</h2>
         </div>
         <img class="milestone-img" src="img/1.jpg" alt="Sustainability / strategy imagery" />
-        <p class="milestone-detail">
+        <p class="milestone-detail" data-i18n="m2020Body">
           Intel launches its RISE (Responsible, Inclusive, Sustainable,
           Enabling) strategy and 2030 goals, aiming to drive industry-wide
           progress on climate action, water stewardship, and waste reduction.
@@ -98,7 +131,142 @@
 
     </section>
 
-    <p class="hint">Scroll to view timeline | Hover over cards to learn more!</p>
+    <p class="hint" data-i18n="hintText">Scroll to view timeline | Hover over cards to learn more!</p>
+
+    <!-- NEW: 3-Column Bootstrap Section -->
+    <section class="container my-5" aria-labelledby="impact-title" id="impact">
+      <div class="row mb-4">
+        <div class="col-lg-8">
+          <h2 class="text-white" id="impact-title" data-i18n="impactTitle">
+            How Intel Drives Sustainable Impact
+          </h2>
+          <p class="text-white-50 mb-0" data-i18n="impactSubtitle">
+            Three pillars that help reduce emissions, protect resources, and design for the future.
+          </p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="h-100 p-4 rounded-4 bg-white shadow-sm">
+            <div class="d-flex align-items-start gap-3">
+              <i class="bi bi-lightning-charge-fill fs-2 text-primary" aria-hidden="true"></i>
+              <div>
+                <h3 class="h5 mb-2" data-i18n="col1Title">Energy Efficiency</h3>
+                <p class="text-secondary mb-3" data-i18n="col1Body">
+                  Improving performance per watt and reducing energy usage across products and operations.
+                </p>
+                <a class="link-primary fw-semibold" href="#"
+                   aria-label="Learn more about energy efficiency"
+                   data-i18n="learnMore">
+                  Learn More →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="h-100 p-4 rounded-4 bg-white shadow-sm">
+            <div class="d-flex align-items-start gap-3">
+              <i class="bi bi-droplet-half fs-2 text-primary" aria-hidden="true"></i>
+              <div>
+                <h3 class="h5 mb-2" data-i18n="col2Title">Water Stewardship</h3>
+                <p class="text-secondary mb-3" data-i18n="col2Body">
+                  Conserving and restoring water resources through smarter processes and partnerships.
+                </p>
+                <a class="link-primary fw-semibold" href="#"
+                   aria-label="Learn more about water stewardship"
+                   data-i18n="learnMore">
+                  Learn More →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="h-100 p-4 rounded-4 bg-white shadow-sm">
+            <div class="d-flex align-items-start gap-3">
+              <i class="bi bi-recycle fs-2 text-primary" aria-hidden="true"></i>
+              <div>
+                <h3 class="h5 mb-2" data-i18n="col3Title">Circular Design</h3>
+                <p class="text-secondary mb-3" data-i18n="col3Body">
+                  Reducing waste by rethinking materials, packaging, and end-of-life recovery.
+                </p>
+                <a class="link-primary fw-semibold" href="#"
+                   aria-label="Learn more about circular design"
+                   data-i18n="learnMore">
+                  Learn More →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW: Newsletter form -->
+    <section class="container my-5" aria-labelledby="newsletter-title" id="newsletter">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="p-4 p-md-5 rounded-4 bg-white shadow-sm">
+            <h2 class="h4 mb-2" id="newsletter-title" data-i18n="newsletterTitle">
+              Subscribe to Intel’s Sustainability Newsletter
+            </h2>
+            <p class="text-secondary mb-4" data-i18n="newsletterBody">
+              Get updates on goals, progress, and stories from across Intel’s sustainability journey.
+            </p>
+
+            <form class="row g-3" aria-describedby="newsletter-help">
+              <div class="col-12 col-md-7">
+                <label for="email" class="form-label" data-i18n="emailLabel">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="name@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <div id="newsletter-help" class="form-text" data-i18n="emailHelp">
+                  We’ll never share your email. Unsubscribe anytime.
+                </div>
+              </div>
+
+              <div class="col-12 col-md-5 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100" data-i18n="subscribeBtn">
+                  Subscribe
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- NEW: Footer -->
+  <footer class="container py-4 mt-5 border-top border-light-subtle">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p class="mb-0 text-white-50 small">
+        © <span id="year"></span> Intel Corporation. <span data-i18n="rights">All rights reserved.</span>
+      </p>
+
+      <nav aria-label="Footer links" class="d-flex gap-3">
+        <a class="link-light link-opacity-75-hover small" href="#" data-i18n="privacy">Privacy Policy</a>
+        <a class="link-light link-opacity-75-hover small" href="#" data-i18n="terms">Terms of Use</a>
+        <a class="link-light link-opacity-75-hover small" href="#" data-i18n="contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Localization / RTL script -->
+  <script src="localize.js"></script>
 </body>
 </html>
